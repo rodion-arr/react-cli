@@ -1,0 +1,23 @@
+{
+  "name": "@rodion/react-cli",
+  "version": "0.0.1",
+  "description": "React CLI is a tool that automates frequent tasks during developing of React apps",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rodion-arr/react-cli.git"
+  },
+  "keywords": [
+    "react",
+    "cli"
+  ],
+  "author": "Rodion Abdurakhimov <rodion.arr.web@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rodion-arr/react-cli/issues"
+  },
+  "homepage": "https://github.com/rodion-arr/react-cli#readme"
+}
