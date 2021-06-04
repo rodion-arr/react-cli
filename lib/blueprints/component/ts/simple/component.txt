@@ -1,0 +1,15 @@
+__STYLES_IMPORT__
+
+interface Props {
+    text: string;
+}
+
+export const __COMPONENT_NAME__ = ({
+  text,
+}: Props): JSX.Element => {
+  return (
+    <div>
+      {text}
+    </div>
+  );
+};
