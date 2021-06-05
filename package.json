@@ -26,7 +26,6 @@
   },
   "homepage": "https://github.com/rodion-arr/react-cli#readme",
   "dependencies": {
-    "fs-extra": "^10.0.0",
     "yargs": "^17.0.1"
   },
   "devDependencies": {
