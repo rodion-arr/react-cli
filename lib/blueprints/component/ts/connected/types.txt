@@ -1,0 +1,6 @@
+import { ConnectedProps } from 'react-redux';
+import { connector } from './Connected__COMPONENT_NAME__';
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export type __COMPONENT_NAME__Props = PropsFromRedux;

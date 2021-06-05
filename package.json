@@ -1,12 +1,12 @@
 {
-  "name": "@rodion/react-cli",
+  "name": "@react-tools/cli",
   "version": "0.0.1",
   "description": "React CLI is a tool that automates frequent tasks during developing of React apps",
   "main": "index.js",
   "scripts": {
     "pretest": "standard",
     "test": "jest --coverage",
-    "debug": "bin/rc g c -n Test"
+    "debug": "bin/rc g c -c -n Test"
   },
   "bin": {
     "rc": "./bin/rc"

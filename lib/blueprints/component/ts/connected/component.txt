@@ -1,0 +1,7 @@
+__STYLES_IMPORT__
+import { __COMPONENT_NAME__Props } from './types';
+
+export const __COMPONENT_NAME__ = ({ text }: __COMPONENT_NAME__Props): JSX.Element => {
+  return <div>{text}</div>;
+};
+
