@@ -1,8 +1,8 @@
 {
-  "name": "@react-tools/cli",
+  "name": "tools-react-cli",
   "version": "0.0.1",
   "description": "React CLI is a tool that automates frequent tasks during developing of React apps",
-  "main": "index.js",
+  "main": "bin/rc",
   "scripts": {
     "pretest": "standard",
     "test": "jest --coverage",
