@@ -82,5 +82,23 @@ describe('Generate component', () => {
 
       await fs.remove(testFolder)
     })
+
+    it('should correctly generate component with scss', async () => {
+      const testId = uuidv4()
+      const testFolder = path.join(__dirname, '..', '..', 'fixtures', 'tmp', testId)
+
+      // create tmp test folder for generate command
+      await mkdir(testFolder)
+
+      await exec(`${rcCommand} g c -n TestComponent -s scss`, { cwd: testFolder })
+
+      const expectedDirSource = path.join(process.cwd(), 'test', 'fixtures', 'asserts', 'ts-simple-scss')
+      const targetDirSource = path.join(testFolder, 'TestComponent')
+
+      // check generated files content
+      await compareFolders(expectedDirSource, targetDirSource)
+
+      await fs.remove(testFolder)
+    })
   })
 })
