@@ -2,9 +2,8 @@ const cp = require('child_process')
 const util = require('util')
 const path = require('path')
 const assert = require('assert')
-const { v4: uuidv4 } = require('uuid')
 const fs = require('fs-extra')
-const { compareFolders } = require('../../util/compare-folders')
+const { compareFolders, createTmpTestFolder } = require('../../util/folders')
 
 describe('Generate component', () => {
   const rcCommand = path.join(process.cwd(), 'bin', 'rc')
@@ -30,11 +29,7 @@ describe('Generate component', () => {
   })
 
   it('should output generated files list', async () => {
-    const testId = uuidv4()
-    const testFolder = path.join(__dirname, '..', '..', 'fixtures', 'tmp', testId)
-
-    // create tmp test folder for generate command
-    await mkdir(testFolder)
+    const testFolder = await createTmpTestFolder()
 
     const { stdout } = await exec(`${rcCommand} g c -n TestComponent`, { cwd: testFolder })
 
@@ -47,11 +42,7 @@ describe('Generate component', () => {
   })
 
   it('should correctly generate component with default params', async () => {
-    const testId = uuidv4()
-    const testFolder = path.join(__dirname, '..', '..', 'fixtures', 'tmp', testId)
-
-    // create tmp test folder for generate command
-    await mkdir(testFolder)
+    const testFolder = await createTmpTestFolder()
 
     await exec(`${rcCommand} g c -n TestComponent`, { cwd: testFolder })
 
@@ -64,13 +55,20 @@ describe('Generate component', () => {
     await fs.remove(testFolder)
   })
 
-  describe('component generation with different styles', () => {
-    it('should accept --styles option', async () => {
-      const testId = uuidv4()
-      const testFolder = path.join(__dirname, '..', '..', 'fixtures', 'tmp', testId)
+  it('should check target folder existence', async () => {
+    const testFolder = await createTmpTestFolder()
+    await mkdir(path.join(testFolder, 'TestComponent'))
 
-      // create tmp test folder for generate command
-      await mkdir(testFolder)
+    const { stderr } = await exec(`${rcCommand} g c -n TestComponent`, { cwd: testFolder })
+
+    assert.strictEqual(stderr.includes('Folder already exists!'), true)
+
+    await fs.remove(testFolder)
+  })
+
+  describe('Component generation with different styles', () => {
+    it('should accept --styles option', async () => {
+      const testFolder = await createTmpTestFolder()
 
       await exec(`${rcCommand} g c -n TestComponent --styles scss`, { cwd: testFolder })
 
@@ -84,11 +82,7 @@ describe('Generate component', () => {
     })
 
     it('should correctly generate component with scss', async () => {
-      const testId = uuidv4()
-      const testFolder = path.join(__dirname, '..', '..', 'fixtures', 'tmp', testId)
-
-      // create tmp test folder for generate command
-      await mkdir(testFolder)
+      const testFolder = await createTmpTestFolder()
 
       await exec(`${rcCommand} g c -n TestComponent -s scss`, { cwd: testFolder })
 
@@ -102,11 +96,7 @@ describe('Generate component', () => {
     })
 
     it('should correctly generate component with less', async () => {
-      const testId = uuidv4()
-      const testFolder = path.join(__dirname, '..', '..', 'fixtures', 'tmp', testId)
-
-      // create tmp test folder for generate command
-      await mkdir(testFolder)
+      const testFolder = await createTmpTestFolder()
 
       await exec(`${rcCommand} g c -n TestComponent -s less`, { cwd: testFolder })
 
@@ -114,6 +104,60 @@ describe('Generate component', () => {
       const targetDirSource = path.join(testFolder, 'TestComponent')
 
       // check generated files content
+      await compareFolders(expectedDirSource, targetDirSource)
+
+      await fs.remove(testFolder)
+    })
+
+    it('should correctly generate component without styles', async () => {
+      const testFolder = await createTmpTestFolder()
+
+      await exec(`${rcCommand} g c -n TestComponent -s false`, { cwd: testFolder })
+
+      const expectedDirSource = path.join(process.cwd(), 'test', 'fixtures', 'asserts', 'ts-simple-no-styles')
+      const targetDirSource = path.join(testFolder, 'TestComponent')
+
+      await compareFolders(expectedDirSource, targetDirSource)
+
+      await fs.remove(testFolder)
+    })
+  })
+
+  describe('Generate connected components', () => {
+    it('should correctly generate connected component', async () => {
+      const testFolder = await createTmpTestFolder()
+
+      await exec(`${rcCommand} g c -n TestComponent --connected`, { cwd: testFolder })
+
+      const expectedDirSource = path.join(process.cwd(), 'test', 'fixtures', 'asserts', 'ts-connected-scss')
+      const targetDirSource = path.join(testFolder, 'TestComponent')
+
+      await compareFolders(expectedDirSource, targetDirSource)
+
+      await fs.remove(testFolder)
+    })
+
+    it('should accept -c alias for connected component', async () => {
+      const testFolder = await createTmpTestFolder()
+
+      await exec(`${rcCommand} g c -n TestComponent -c`, { cwd: testFolder })
+
+      const expectedDirSource = path.join(process.cwd(), 'test', 'fixtures', 'asserts', 'ts-connected-scss')
+      const targetDirSource = path.join(testFolder, 'TestComponent')
+
+      await compareFolders(expectedDirSource, targetDirSource)
+
+      await fs.remove(testFolder)
+    })
+
+    it('should correctly generate connected component without styles', async () => {
+      const testFolder = await createTmpTestFolder()
+
+      await exec(`${rcCommand} g c -n TestComponent -c -s false`, { cwd: testFolder })
+
+      const expectedDirSource = path.join(process.cwd(), 'test', 'fixtures', 'asserts', 'ts-connected-no-styles')
+      const targetDirSource = path.join(testFolder, 'TestComponent')
+
       await compareFolders(expectedDirSource, targetDirSource)
 
       await fs.remove(testFolder)

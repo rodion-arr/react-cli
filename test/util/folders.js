@@ -1,6 +1,9 @@
 const fs = require('fs-extra')
 const klaw = require('klaw')
 const assert = require('assert')
+const { v4: uuidv4 } = require('uuid')
+const path = require('path')
+const util = require('util')
 
 /**
  * Reads folder contents recursively
@@ -34,4 +37,18 @@ module.exports.compareFolders = async function compareFolders (expectedDirSource
     assert.strictEqual(Object.prototype.hasOwnProperty.call(generated, key), true, `Expected file ${key} was not generated`)
     assert.strictEqual(expected[key], generated[key], `File ${key} has wrong content`)
   }
+}
+
+/**
+ * Creates test folder with random name and returns it's path
+ */
+module.exports.createTmpTestFolder = async function createTmpTestFolder () {
+  const mkdir = util.promisify(fs.mkdir)
+  const testId = uuidv4()
+  const testFolder = path.join(__dirname, '..', 'fixtures', 'tmp', testId)
+
+  // create tmp test folder for generate command
+  await mkdir(testFolder)
+
+  return testFolder
 }
