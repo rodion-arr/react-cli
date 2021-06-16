@@ -60,7 +60,7 @@ Options:
       --version     Show version number                                                    [boolean]
   -n, --name        Component name                                               [string] [required]
   -p, --path        Generation target path. Default - cwd
-                     [string] [required] [default: "/Users/rodion/Documents/Repos/GitHub/react-cli"]
+                     [string] [required]
   -s, --styles      Style file format to generate. Use false to not generate styles file. Default -
                     scss     [string] [required] [choices: "css", "scss", "false"] [default: "scss"]
   -t, --typescript  Pass true to generate typescript files      [boolean] [required] [default: true]
