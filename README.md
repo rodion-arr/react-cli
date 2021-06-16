@@ -1,6 +1,6 @@
 # tools-react-cli
 
-![Test](https://github.com/rodion-arr/react-cli/workflows/Test/badge.svg)
+[![Node.js CI](https://github.com/rodion-arr/react-cli/actions/workflows/ci.yaml/badge.svg)](https://github.com/rodion-arr/react-cli/actions/workflows/ci.yaml)
 [![codecov](https://codecov.io/gh/rodion-arr/react-cli/branch/main/graph/badge.svg)](https://codecov.io/gh/rodion-arr/react-cli)
 <span class="badge-npmversion"><a href="https://npmjs.org/package/tools-react-cli" title="View this project on NPM"><img src="https://img.shields.io/npm/v/tools-react-cli.svg" alt="NPM version" /></a></span>
 
