@@ -1,5 +1,9 @@
 # tools-react-cli
 
+![Test](https://github.com/rodion-arr/react-cli/workflows/Test/badge.svg)
+[![codecov](https://codecov.io/gh/rodion-arr/react-cli/branch/main/graph/badge.svg)](https://codecov.io/gh/rodion-arr/react-cli)
+<span class="badge-npmversion"><a href="https://npmjs.org/package/tools-react-cli" title="View this project on NPM"><img src="https://img.shields.io/npm/v/tools-react-cli.svg" alt="NPM version" /></a></span>
+
 React CLI is a tool that automates frequent tasks during developing of React apps
 
 ## Installation
