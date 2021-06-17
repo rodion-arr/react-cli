@@ -23,7 +23,7 @@ rc <command> [options]
 ### As `npx` script
 
 ```bash
-npx tools-react-cli rc <command> [options]
+npx tools-react-cli <command> [options]
 ```
 
 ## Usage
