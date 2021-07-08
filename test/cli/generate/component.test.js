@@ -163,4 +163,45 @@ describe('Generate component', () => {
       await fs.remove(testFolder)
     })
   })
+
+  describe('JavaScript component generation', () => {
+    it('should generate simple JS component with --typescript = false', async () => {
+      const testFolder = await createTmpTestFolder()
+
+      await exec(`${rcCommand} g c -n TestComponent -s false --typescript false`, { cwd: testFolder })
+
+      const expectedDirSource = path.join(process.cwd(), 'test', 'fixtures', 'asserts', 'js-simple-no-styles')
+      const targetDirSource = path.join(testFolder, 'TestComponent')
+
+      await compareFolders(expectedDirSource, targetDirSource)
+
+      await fs.remove(testFolder)
+    })
+
+    it('should accept -t alias for --typescript option', async () => {
+      const testFolder = await createTmpTestFolder()
+
+      await exec(`${rcCommand} g c -n TestComponent -s false -t false`, { cwd: testFolder })
+
+      const expectedDirSource = path.join(process.cwd(), 'test', 'fixtures', 'asserts', 'js-simple-no-styles')
+      const targetDirSource = path.join(testFolder, 'TestComponent')
+
+      await compareFolders(expectedDirSource, targetDirSource)
+
+      await fs.remove(testFolder)
+    })
+
+    it('should generate JS component with styles', async () => {
+      const testFolder = await createTmpTestFolder()
+
+      await exec(`${rcCommand} g c -n TestComponent -t false`, { cwd: testFolder })
+
+      const expectedDirSource = path.join(process.cwd(), 'test', 'fixtures', 'asserts', 'js-simple-scss')
+      const targetDirSource = path.join(testFolder, 'TestComponent')
+
+      await compareFolders(expectedDirSource, targetDirSource)
+
+      await fs.remove(testFolder)
+    })
+  })
 })
