@@ -1,0 +1,5 @@
+__STYLES_IMPORT__
+
+export const __COMPONENT_NAME__ = ({ text }) => {
+  return <div>{text}</div>;
+};
