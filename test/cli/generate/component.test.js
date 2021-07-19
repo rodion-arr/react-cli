@@ -203,5 +203,31 @@ describe('Generate component', () => {
 
       await fs.remove(testFolder)
     })
+
+    it('should generate JS connected component without styles', async () => {
+      const testFolder = await createTmpTestFolder()
+
+      await exec(`${rcCommand} g c -n TestComponent -t false -c -s false`, { cwd: testFolder })
+
+      const expectedDirSource = path.join(process.cwd(), 'test', 'fixtures', 'asserts', 'js-connected-no-styles')
+      const targetDirSource = path.join(testFolder, 'TestComponent')
+
+      await compareFolders(expectedDirSource, targetDirSource)
+
+      await fs.remove(testFolder)
+    })
+
+    it('should generate JS connected component with styles', async () => {
+      const testFolder = await createTmpTestFolder()
+
+      await exec(`${rcCommand} g c -n TestComponent -t false -c`, { cwd: testFolder })
+
+      const expectedDirSource = path.join(process.cwd(), 'test', 'fixtures', 'asserts', 'js-connected-scss')
+      const targetDirSource = path.join(testFolder, 'TestComponent')
+
+      await compareFolders(expectedDirSource, targetDirSource)
+
+      await fs.remove(testFolder)
+    })
   })
 })
