@@ -1,15 +1,14 @@
 import './TestComponent.less';
 
 interface Props {
-    text: string;
+  className?: string;
 }
 
 export const TestComponent = ({
-  text,
+  className = '',
 }: Props): JSX.Element => {
   return (
-    <div>
-      {text}
+    <div className={`${className}`}>
     </div>
   );
 };
